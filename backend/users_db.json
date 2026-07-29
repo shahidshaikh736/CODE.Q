@@ -1,0 +1,32 @@
+[
+  {
+    "email": "shahid123@gmail.com",
+    "username": "shahid",
+    "passwordHash": "$2b$10$XikDxMOlQJr38En1fVJEBOuBzfdKj4/KruxPGLMBWijSieGcioWOS",
+    "createdAt": 1785163257614
+  },
+  {
+    "email": "shahid1234@gmail.com",
+    "username": "shahid1",
+    "passwordHash": "$2b$10$3jk85SpcZoIkmbONOXWkMuwQc6FSN57B5ckbLB9f5NlWg9b7cjaDS",
+    "createdAt": 1785163324215
+  },
+  {
+    "email": "shahid1233@gmail.com",
+    "username": "shahidshaikh1",
+    "passwordHash": "$2b$10$wYqcD033RNQefWj4spE.keRWN29ChGlUzl8rrpOOasx8WbxcIQBdq",
+    "createdAt": 1785163571488
+  },
+  {
+    "email": "shahid@gmail.com",
+    "username": "shahid shaikh",
+    "passwordHash": "$2b$10$whB5i526wq14I2XCo0niKe/jMYGc9.PQtIQJW/4j2ac1qr3YhwGxa",
+    "createdAt": 1785164127858
+  },
+  {
+    "email": "tejas123@gmail.com",
+    "username": "tejas gund",
+    "passwordHash": "$2b$10$stNaJJBucjsOyH2.EBCLYuAf7W1TEYVSmbp4.jFHu6YgY9tSQU7iq",
+    "createdAt": 1785241925389
+  }
+]

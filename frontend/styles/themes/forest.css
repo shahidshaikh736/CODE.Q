@@ -1,0 +1,36 @@
+/* ============================================
+   CodeQuest — Frontend Track Theme
+   ============================================ */
+
+.theme-forest {
+  --theme-primary: var(--realm-forest-primary);
+  --theme-secondary: var(--realm-forest-secondary);
+  --theme-glow: var(--realm-forest-glow);
+  --theme-bg: var(--realm-forest-bg);
+}
+
+.theme-forest .challenge-header {
+  border-bottom-color: rgba(16, 185, 129, 0.2);
+}
+
+.theme-forest .challenge-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--realm-forest-primary), transparent);
+}
+
+.theme-forest .level-number {
+  border-color: var(--realm-forest-primary);
+}
+
+.theme-forest .btn-run {
+  background: linear-gradient(135deg, var(--color-green-dim), var(--color-green));
+}
+
+.theme-forest .editor-wrapper {
+  border-color: rgba(16, 185, 129, 0.15);
+}

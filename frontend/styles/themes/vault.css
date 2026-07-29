@@ -1,0 +1,37 @@
+/* ============================================
+   CodeQuest — Database Track Theme
+   ============================================ */
+
+.theme-vault {
+  --theme-primary: var(--realm-vault-primary);
+  --theme-secondary: var(--realm-vault-secondary);
+  --theme-glow: var(--realm-vault-glow);
+  --theme-bg: var(--realm-vault-bg);
+}
+
+.theme-vault .challenge-header {
+  border-bottom-color: rgba(245, 158, 11, 0.2);
+}
+
+.theme-vault .challenge-header::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--realm-vault-primary), transparent);
+}
+
+.theme-vault .level-number {
+  border-color: var(--realm-vault-primary);
+}
+
+.theme-vault .btn-run {
+  background: linear-gradient(135deg, var(--color-gold-dim), var(--color-gold));
+  color: var(--color-text-inverse);
+}
+
+.theme-vault .editor-wrapper {
+  border-color: rgba(245, 158, 11, 0.15);
+}
