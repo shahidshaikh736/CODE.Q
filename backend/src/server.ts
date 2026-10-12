@@ -339,7 +339,12 @@ async function initConnections() {
 
   // 1. Initialize PostgreSQL
   try {
-    pgPool = new Pool({ connectionString: PG_CONNECTION_STRING, connectionTimeoutMillis: 3000 });
+    const isLocal = PG_CONNECTION_STRING.includes('localhost') || PG_CONNECTION_STRING.includes('127.0.0.1');
+    pgPool = new Pool({
+      connectionString: PG_CONNECTION_STRING,
+      connectionTimeoutMillis: 10000,
+      ssl: isLocal ? false : { rejectUnauthorized: false }
+    });
     await pgPool.query('SELECT NOW()');
     app.log.info('🚀 PostgreSQL connected successfully.');
     
