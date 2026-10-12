@@ -3,6 +3,7 @@ import { Player } from '../game/player';
 import { Sounds } from '../game/sounds';
 import { AuthService } from '../game/auth';
 import { GameEngine } from '../game/engine';
+import { BACKEND_URL } from '../game/config';
 import { LANGUAGE_CATEGORIES, LANGUAGE_META } from '../game/languages';
 import { ArrowUp, ArrowLeft, BarChart2, User, Target, Megaphone, Cpu, Brain, Trash2, Edit2, Check, Settings, Shield, Code, Users, TrendingUp, Plus, RefreshCw, MoreVertical, Globe, Server, Database, ToggleLeft, ToggleRight, Layout, AlertTriangle, AlertCircle, Info, Eye, EyeOff, Zap, Clock, Star } from 'lucide-react';
 
@@ -137,7 +138,7 @@ export default function AdminScreen({ onBack }: AdminScreenProps) {
   const loadAdminData = async () => {
     setLoading(true);
     try {
-      const healthRes = await fetch('http://localhost:5000/health');
+      const healthRes = await fetch(`${BACKEND_URL}/health`);
       if (healthRes.ok) {
         const health = await healthRes.json();
         setDbStatus({
@@ -150,7 +151,7 @@ export default function AdminScreen({ onBack }: AdminScreenProps) {
     }
 
     try {
-      const playersRes = await fetch('http://localhost:5000/api/admin/players', {
+      const playersRes = await fetch(`${BACKEND_URL}/api/admin/players`, {
         headers: { 'X-Admin-Token': ADMIN_TOKEN }
       });
       if (playersRes.ok) {
@@ -166,7 +167,7 @@ export default function AdminScreen({ onBack }: AdminScreenProps) {
   useEffect(() => {
     loadAdminData();
     // Fetch global config
-    fetch('http://localhost:5000/api/config/languages')
+    fetch(`${BACKEND_URL}/api/config/languages`)
       .then(res => res.json())
       .then(data => {
         if (data.success && data.disabledLanguages) {
@@ -176,7 +177,7 @@ export default function AdminScreen({ onBack }: AdminScreenProps) {
       .catch(err => console.error(err));
     const interval = setInterval(async () => {
       try {
-        const res = await fetch('http://localhost:5000/api/admin/metrics', {
+        const res = await fetch(`${BACKEND_URL}/api/admin/metrics`, {
           headers: ADMIN_HEADERS
         });
         if (res.ok) {
@@ -202,7 +203,7 @@ export default function AdminScreen({ onBack }: AdminScreenProps) {
     if (!window.confirm(`Are you sure you want to completely purge the account "${name}" from the database?`)) return;
     Sounds.playClick();
     try {
-      const res = await fetch(`http://localhost:5000/api/admin/player/delete/${name}`, {
+      const res = await fetch(`${BACKEND_URL}/api/admin/player/delete/${name}`, {
         method: 'DELETE',
         headers: { 'X-Admin-Token': ADMIN_TOKEN }
       });
@@ -222,7 +223,7 @@ export default function AdminScreen({ onBack }: AdminScreenProps) {
   const handleRestorePlayer = async (name: string) => {
     Sounds.playClick();
     try {
-      const res = await fetch(`http://localhost:5000/api/admin/player/restore/${encodeURIComponent(name)}`, {
+      const res = await fetch(`${BACKEND_URL}/api/admin/player/restore/${encodeURIComponent(name)}`, {
         method: 'POST',
         headers: { 'X-Admin-Token': ADMIN_TOKEN }
       });
@@ -236,7 +237,7 @@ export default function AdminScreen({ onBack }: AdminScreenProps) {
     if (!window.confirm(`Are you sure you want to ${player.isBanned ? 'unban' : 'ban'} ${player.name}?`)) return;
     Sounds.playClick();
     try {
-      const res = await fetch(`http://localhost:5000/api/admin/player/ban/${encodeURIComponent(player.name)}`, {
+      const res = await fetch(`${BACKEND_URL}/api/admin/player/ban/${encodeURIComponent(player.name)}`, {
         method: 'POST',
         headers: ADMIN_HEADERS,
         body: JSON.stringify({ banned: !player.isBanned })
@@ -249,7 +250,7 @@ export default function AdminScreen({ onBack }: AdminScreenProps) {
     if (!directAlertMsg.trim()) return;
     Sounds.playClick();
     try {
-      const res = await fetch(`http://localhost:5000/api/admin/player/alert/${encodeURIComponent(name)}`, {
+      const res = await fetch(`${BACKEND_URL}/api/admin/player/alert/${encodeURIComponent(name)}`, {
         method: 'POST',
         headers: ADMIN_HEADERS,
         body: JSON.stringify({ message: directAlertMsg })
@@ -270,7 +271,7 @@ export default function AdminScreen({ onBack }: AdminScreenProps) {
         priority: broadcastPriority,
         audience: broadcastAudience
       };
-      await fetch('http://localhost:5000/api/admin/broadcast', {
+      await fetch(`${BACKEND_URL}/api/admin/broadcast`, {
         method: 'POST', headers: ADMIN_HEADERS,
         body: JSON.stringify(payload)
       });
@@ -325,7 +326,7 @@ export default function AdminScreen({ onBack }: AdminScreenProps) {
     GameEngine.setDisabledLanguages(newLangs);
 
     try {
-      await fetch('http://localhost:5000/api/admin/config/languages', {
+      await fetch(`${BACKEND_URL}/api/admin/config/languages`, {
         method: 'POST',
         headers: ADMIN_HEADERS,
         body: JSON.stringify({ disabledLanguages: newLangs })

@@ -4,6 +4,7 @@ import { Player } from '../game/player';
 import { Particles } from '../game/particles';
 import { BossFight } from '../game/boss-fights';
 import { AuthService } from '../game/auth';
+import { BACKEND_URL } from '../game/config';
 
 // Screens
 import LandingScreen from './LandingScreen';
@@ -63,7 +64,7 @@ export default function App() {
   // Check auth session on boot
   useEffect(() => {
     // Fetch global disabled languages
-    fetch('http://localhost:5000/api/config/languages')
+    fetch(`${BACKEND_URL}/api/config/languages`)
       .then(res => res.json())
       .then(data => {
         if (data && data.success && data.disabledLanguages) {

@@ -4,9 +4,9 @@
 
 import { ChallengesData } from './challenges';
 import { Sounds } from './sounds';
+import { BACKEND_URL } from './config';
 
 const STORAGE_KEY = 'codequest_player';
-const BACKEND_URL = 'http://localhost:5000';
 
 export interface PlayerStats {
   challengesCompleted: number;

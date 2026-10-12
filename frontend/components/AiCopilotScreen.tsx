@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { Sounds } from '../game/sounds';
 import { Player } from '../game/player';
+import { BACKEND_URL } from '../game/config';
 
 export default function AiCopilotScreen({ onBack }) {
   const [messages, setMessages] = useState([
@@ -54,7 +55,7 @@ export default function AiCopilotScreen({ onBack }) {
     if (!textToSend) setInput('');
 
     // Fetch response from Fastify backend
-    fetch('http://localhost:5000/api/ai/chat', {
+    fetch(`${BACKEND_URL}/api/ai/chat`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ message: text })

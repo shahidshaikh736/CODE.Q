@@ -2,8 +2,9 @@
    CODE.Q — Auth Service (Frontend)
    Handles: register, login, OTP verify, logout
    ============================================ */
+import { BACKEND_URL } from './config';
 
-const API_BASE = 'http://localhost:5000';
+const API_BASE = BACKEND_URL;
 const TOKEN_KEY = 'codequest_auth_token';
 const USER_KEY = 'codequest_auth_user';
 

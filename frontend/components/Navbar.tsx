@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { Player } from '../game/player';
 import { Sounds } from '../game/sounds';
 import { AuthService } from '../game/auth';
+import { BACKEND_URL } from '../game/config';
 import Avatar from './Avatar';
 import { Zap, Trophy, Bot, Bell, ClipboardList, FlaskConical, User, Flame } from 'lucide-react';
 
@@ -117,7 +118,7 @@ export default function Navbar({ isOpen, activeTab, currentChallenge, onNavigate
 
     const pollBroadcasts = async () => {
       try {
-        const res = await fetch(`http://localhost:5000/api/broadcasts?since=${lastCheck}`, {
+        const res = await fetch(`${BACKEND_URL}/api/broadcasts?since=${lastCheck}`, {
           cache: 'no-store',
           headers: {
             'Cache-Control': 'no-cache',
