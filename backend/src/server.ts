@@ -21,6 +21,7 @@ const PORT = Number(process.env.PORT) || 5000;
 const PG_CONNECTION_STRING = process.env.DATABASE_URL || 'postgresql://postgres:postgres@localhost:5432/codequest';
 const REDIS_URL = process.env.REDIS_URL || 'redis://127.0.0.1:6379';
 const AI_SERVICE_URL = process.env.AI_SERVICE_URL || 'http://localhost:8000';
+let pgLastError: string | null = null;
 
 // ── Auth Config ──
 const JWT_SECRET = process.env.JWT_SECRET || 'codequest_jwt_super_secret_key_2024';
@@ -389,8 +390,9 @@ async function initConnections() {
     }
 
     app.log.info('📋 Database tables bootstrapped successfully.');
-  } catch (err) {
-    app.log.warn('⚠️ PostgreSQL connection failed. Running with in-memory & disk database fallback.');
+  } catch (err: any) {
+    pgLastError = err ? (err.message || String(err)) : 'Unknown connection error';
+    app.log.warn({ err }, '⚠️ PostgreSQL connection failed. Running with in-memory & disk database fallback.');
     pgPool = null;
     loadSettingsFromDisk();
   }
@@ -422,6 +424,11 @@ app.get('/health', async () => {
     services: {
       postgres: pgPool !== null ? 'connected' : 'fallback_memory_mode',
       redis: redisClient !== null ? 'connected' : 'disabled'
+    },
+    db_diagnostics: {
+      has_db_url: !!process.env.DATABASE_URL,
+      url_preview: process.env.DATABASE_URL ? (process.env.DATABASE_URL.slice(0, 20) + '...') : 'not_set',
+      last_error: pgLastError
     }
   };
 });
